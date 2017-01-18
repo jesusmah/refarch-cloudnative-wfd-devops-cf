@@ -257,7 +257,7 @@ pipeline-wfd-cloudamqp:
     name: "6. CloudAMQP Service"
     ui-pipeline: true
     configuration:
-      content: $file(wfd-cloudamqp-ic-pipeline.yml)
+      content: $file(wfd-cloudamqp-cf-pipeline.yml)
       env:
        # Build container stage env variables
        REGION: "{{deploy.parameters.deploy-region}}"
