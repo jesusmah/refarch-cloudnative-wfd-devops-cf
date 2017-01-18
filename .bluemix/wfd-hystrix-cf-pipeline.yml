@@ -17,9 +17,7 @@ stages:
         echo "Run gradle build..."
         export JAVA_HOME=~/java8
         export PATH=$JAVA_HOME/bin:$PATH
-        /bin/bash build-microservice.sh
-        ls -al $PWD
-        echo "Gradle build complete."
+        mvn clean install
 - name: Deploy Microservice
   inputs:
   - type: job
@@ -30,12 +28,6 @@ stages:
   properties:
   - name: BUILD_TARGET
     value: ${BUILD_TARGET}
-    type: text
-  - name: SERVICE_DISCOVERY_UPS
-    value: ${SERVICE_DISCOVERY_UPS}
-    type: text
-  - name: CONFIG_SERVER_UPS
-    value: ${CONFIG_SERVER_UPS}
     type: text
   - name: TEST_RESULT_FOR_AD
     value: ${TEST_RESULT_FOR_AD}
@@ -118,9 +110,10 @@ stages:
       # ----------------------------------------- #
 
       cf push "${NAME}" -p ${BUILD_TARGET} -i 1 --no-start --no-route
-      cf set-env ${NAME} SPRING_PROFILES_ACTIVE cloud
-      cf bind-service ${NAME} ${SERVICE_DISCOVERY_UPS}
-      cf bind-service ${NAME} ${CONFIG_SERVER_UPS}
+      # cf set-env ${NAME} SPRING_PROFILES_ACTIVE cloud
+      # cf bind-service ${NAME} ${SERVICE_DISCOVERY_UPS}
+      # cf bind-service ${NAME} ${CONFIG_SERVER_UPS}
+      cf bind-service ${NAME} ${CLOUDAMQP_SERVICE}
 
       # ------------------------------------------------------------------------ #
       # Create the route and map it before starting. Otherwise, the microservice #
