@@ -274,7 +274,7 @@ pipeline-wfd-cloudamqp:
 pipeline-wfd-hystrix:
   service_id: pipeline
   parameters:
-    name: "10. Hystrix Dashboard IC"
+    name: "9. Hystrix Dashboard IC"
     ui-pipeline: true
     configuration:
       content: $file(wfd-cf-pipeline-template.yml)
