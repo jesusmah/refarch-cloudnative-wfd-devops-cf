@@ -121,6 +121,7 @@ stages:
       cf set-env ${NAME} SPRING_PROFILES_ACTIVE cloud
       cf bind-service ${NAME} ${SERVICE_DISCOVERY_UPS}
       cf bind-service ${NAME} ${CONFIG_SERVER_UPS}
+      cf bind-service ${NAME} ${CLOUDAMQP_SERVICE}
 
       # ------------------------------------------------------------------------ #
       # Create the route and map it before starting. Otherwise, the microservice #
