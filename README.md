@@ -26,11 +26,11 @@ In order to create a toolchain for the What's For Dinner Microservices Reference
 
 This RESILIENCY branch of the What's For Dinner DevOps GitHub repository not only implements the same toolchain as the master branch but also includes the new resiliency artifacts for the What's For Dinner app in its implementation.
 
-These new elements are the Netflix OSS component Hystrix (microservices monitoring and circuit breaker) as well as the appropriate CloudAMQP service (Managed HA RabbitMQ Server). For further detail on these new components as well as on this new architecture that includes the resiliency pieces for the What's For Dinner app, please read resiliency branch main app's [readme](https://github.com/ibm-cloud-architecture/refarch-cloudnative-netflix/tree/RESILIENCY).
+These new elements are the Netflix OSS component Hystrix (metrics and circuit breaker) as well as the appropriate CloudAMQP service (Managed HA RabbitMQ Server) for integration. For further detail on these new components as well as on this new architecture that includes the resiliency pieces for the What's For Dinner app, please read the resiliency branch main app's [readme](https://github.com/ibm-cloud-architecture/refarch-cloudnative-netflix/tree/RESILIENCY).
 
-Microservices implementing the Hystrix's Circuit Breaker pattern need the RabbitMQ Server credentials beforehand, so that they can establish connection to the server during their startup. Therefore, the CloudAMQP delivery pipeline must be executed before the Menu and Menu UI microservices are deployed.
+Microservices implementing the Hystrix's Circuit Breaker pattern need the RabbitMQ Server credentials beforehand, so that they can establish connection to the server during their startup. Therefore, the CloudAMQP delivery pipeline must be executed before the Menu and Menu UI microservices are deployed (pipelines are numbered so that they are executed in the right order).
 
-The CloudAMQP delivery pipeline will create a new CloudAMQP service. If there is an existing CloudAMQP service already, the CloudAMQP delivery pipeline will unbind it from any microservice and then delete it before creating the new one. Finally, it will bind the new CloudAMQP service to the appropriate microservices and re-stage those Cloud Foundry Apps, so that microservices use new CloudAMQP service.
+The CloudAMQP delivery pipeline will create a new CloudAMQP service. If there is an existing CloudAMQP service already, the CloudAMQP delivery pipeline will unbind it from any microservice and then delete it before creating the new one. Finally, it will bind the new CloudAMQP service to the previous bound microservices and re-stage them, so that these microservices use the new CloudAMQP service.
 
 The Netflix OSS component Hystrix gets deployed after the Menu and Menu UI microservices and it is bound to the previously created CloudAMQP service in order to read Menu's and Menu UI's messages.
 
