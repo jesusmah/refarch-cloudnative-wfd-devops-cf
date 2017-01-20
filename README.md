@@ -26,7 +26,7 @@ In order to create a toolchain for the What's For Dinner Microservices Reference
 
 This RESILIENCY branch of the What's For Dinner DevOps GitHub repository not only implements the same toolchain as the master branch but also includes the new resiliency artifacts for the What's For Dinner app in its implementation.
 
-These new elements are the Netflix OSS component Hystrix (microservices monitoring and circuit breaker) as well as the appropriate CloudAMQP (Managed HA RabbitMQ Server). For further detail on these new components as well as the new architecture that includes the resiliency work done for the What's For Dinner app, please read resiliency app's [readme](https://github.com/ibm-cloud-architecture/refarch-cloudnative-netflix/tree/RESILIENCY).
+These new elements are the Netflix OSS component Hystrix (microservices monitoring and circuit breaker) as well as the appropriate CloudAMQP service (Managed HA RabbitMQ Server). For further detail on these new components as well as on this new architecture that includes the resiliency pieces for the What's For Dinner app, please read resiliency branch main app's [readme](https://github.com/ibm-cloud-architecture/refarch-cloudnative-netflix/tree/RESILIENCY).
 
 Microservices implementing the Hystrix's Circuit Breaker pattern need the RabbitMQ Server credentials beforehand, so that they can establish connection to the server during their startup. Therefore, the CloudAMQP delivery pipeline must be executed before the Menu and Menu UI microservices are deployed.
 
